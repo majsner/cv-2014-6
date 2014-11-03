@@ -12,11 +12,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
-public class HotelActivity extends ActionBarActivity implements FormFragment.OnFragmentInteractionListener {
+
+public class HotelActivity extends ActionBarActivity implements FormFragment.OnFragmentInteractionListener, ResultsFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class HotelActivity extends ActionBarActivity implements FormFragment.OnF
 
     @Override
     public void sendButton() {
-        if (((EditText) findViewById(R.id.name)).getText() == null || ((EditText) findViewById(R.id.name)).getText().equals("")) {
+        if (((EditText) findViewById(R.id.name)).getText() == null || ((EditText) findViewById(R.id.name)).getText().toString().equals("")) {
             showToast(getString(R.string.nameValidation));
             return;
         }
@@ -105,13 +108,34 @@ public class HotelActivity extends ActionBarActivity implements FormFragment.OnF
             showToast(getString(R.string.emailValidation));
             return;
         }
+        ArrayList<String> data = new ArrayList<String>();
+        data.add(0,((EditText) findViewById(R.id.name)).getText().toString());
+        data.add(1,((EditText) findViewById(R.id.address)).getText().toString());
+        data.add(2,((EditText) findViewById(R.id.phone)).getText().toString());
+        data.add(2,((EditText) findViewById(R.id.email)).getText().toString());
+        data.add(3,((EditText) findViewById(R.id.datum)).getText().toString());
+        Boolean breakfast = ((CheckBox) findViewById(R.id.breakfast)).isChecked();
+        int days = ((Spinner) findViewById(R.id.days)).getSelectedItemPosition();
+        ResultsFragment formFragment = ResultsFragment.newInstance(data,breakfast,days);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, formFragment)
+                    .commit();
+
+
     }
+
+
 
     @Override
     public void resetButton(){
         loopLayoutReset((LinearLayout) findViewById(R.id.layout));
-        NumberPicker numberPicker = (NumberPicker) findViewById(R.id.days);
-        numberPicker.setValue(1);
+        Spinner spinner = (Spinner) findViewById(R.id.days);
+        spinner.setSelection(0);
         ((CheckBox) findViewById(R.id.breakfast)).setChecked(false);
+    }
+
+    @Override
+    public void toast(String toast) {
+        showToast(toast);
     }
 }
