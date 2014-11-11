@@ -118,7 +118,7 @@ public class HotelActivity extends ActionBarActivity implements FormFragment.OnF
         int days = ((Spinner) findViewById(R.id.days)).getSelectedItemPosition();
         ResultsFragment formFragment = ResultsFragment.newInstance(data,breakfast,days);
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, formFragment)
+                    .replace(R.id.container, formFragment).addToBackStack(null)
                     .commit();
 
 
