@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:id="1"
+                    android:id="@+id/send"
                     android:padding="10dp"
                     android:text="@string/send"
                     android:drawableLeft="@drawable/ic_action_done"/>
