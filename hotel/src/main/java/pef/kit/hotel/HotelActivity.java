@@ -27,7 +27,7 @@ public class HotelActivity extends ActionBarActivity implements FormFragment.OnF
         setContentView(R.layout.activity_hotel);
         FormFragment formFragment = FormFragment.newInstance();
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, formFragment)
                     .commit();
         }
@@ -117,7 +117,7 @@ public class HotelActivity extends ActionBarActivity implements FormFragment.OnF
         Boolean breakfast = ((CheckBox) findViewById(R.id.breakfast)).isChecked();
         int days = ((Spinner) findViewById(R.id.days)).getSelectedItemPosition();
         ResultsFragment formFragment = ResultsFragment.newInstance(data,breakfast,days);
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, formFragment).addToBackStack(null)
                     .commit();
 
